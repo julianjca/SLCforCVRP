@@ -302,28 +302,13 @@ public class Main {
                                 //System.out.println("");
                                 dummyPemain [pemain][dim] = (miu1*newPlayerArray[pemain][dim])+(tao1*(superstarplayer[dim]-newPlayerArray[pemain][dim]))+(tao2*(starplayer[team][dim]-newPlayerArray[pemain][dim]));
                                 //System.out.format("%8.2f", dummyPemain[pemain][dim]);
-                                //bentukrute(capacity,resetcustomerNum,customerList,vehicleNum, vehicle, dummyPemain, coorx, coory, matriksjarak, customerNum, kondisi1, ruteImitasi, banya, demand,dummyfit, bestruteImitasi);
-                                /*twoopt(simpan,banya,vehicleNum,bestruteImitasi,rute,dummyfit,nPlayers,matriksjarak,customerNum);
-                                hitungfitness(vehicleNum,customerNum,rute,fitness,nPlayers,matriksjarak,player,minpemain,rutemin);
-                                hitungsuperstarplayer(nPlayers, min, newPlayerArray, vehicleNum, superstarplayer);
-                                hitungstarplayer(nPlayer, min, newPlayerArray, vehicleNum, starplayer, nTeam, nFP);
-                                for (int countplayer = 0; countplayer < nPlayers; countplayer++) {
-                                        newPlayerArray[countplayer][(vehicleNum*3)] = fitness[countplayer];
 
-                                }*/
                             }
                             //System.out.println("");
                         }
                         bentukrute2(capacity,resetcustomerNum,customerList,vehicleNum, vehicle, dummyPemain, coorx, coory, matriksjarak, customerNum, nPlayers, rute, banya, demand,dummyfit, bestrute);
                         hitungfitness(vehicleNum,customerNum,rute,dummyFitness,nPlayers,matriksjarak,player,minpemain,rutemin);
-                        for (int i = 0; i < nPlayers; i++) {
-                            if (dummyFitness[i]<=fitness[i]){
-                                    for (int k = 0; k < vehicleNum*3; k++) {
-                                        newPlayerArray[i][k]= dummyPemain[i][k];
-                                        newPlayerArray[i][(vehicleNum*3)] = dummyFitness[i];
-                                    }
-                            }
-                        }
+                        cekfitnessbaru(newPlayerArray,vehicleNum,nPlayers,dummyFitness,fitness,dummyPemain);
                         hitungsuperstarplayer(nPlayers, min, newPlayerArray, vehicleNum, superstarplayer);
                         hitungstarplayer(nPlayer, min, newPlayerArray, vehicleNum, starplayer, nTeam, nFP);
                     }
@@ -354,27 +339,12 @@ public class Main {
                                 dummyPemain [pemain][dim] = (miu1*newPlayerArray[pemain][dim])+(tao1*(superstarplayer[dim]-newPlayerArray[pemain][dim]))+(tao2*(starplayer[team][dim]-newPlayerArray[pemain][dim]));
                                 //System.out.format("%8.2f", dummyPemain[pemain][dim]);
 
-                                /*twoopt(simpan,banya,vehicleNum,bestruteImitasi,rute,dummyfit,nPlayers,matriksjarak,customerNum);
-                                hitungfitness(vehicleNum,customerNum,rute,fitness,nPlayers,matriksjarak,player,minpemain,rutemin);
-                                hitungsuperstarplayer(nPlayers, min, newPlayerArray, vehicleNum, superstarplayer);
-                                hitungstarplayer(nPlayer, min, newPlayerArray, vehicleNum, starplayer, nTeam, nFP);
-                                for (int countplayer = 0; countplayer < nPlayers; countplayer++) {
-                                        newPlayerArray[countplayer][(vehicleNum*3)] = fitness[countplayer];
-
-                                }*/
                             }
                             //System.out.println("");
                         }
                         bentukrute2(capacity,resetcustomerNum,customerList,vehicleNum, vehicle, dummyPemain, coorx, coory, matriksjarak, customerNum, nPlayers, rute, banya, demand,dummyfit, bestrute);
                         hitungfitness(vehicleNum,customerNum,rute,dummyFitness,nPlayers,matriksjarak,player,minpemain,rutemin);
-                        for (int i = 0; i < nPlayers; i++) {
-                            if (dummyFitness[i]<=fitness[i]){
-                                for (int k = 0; k < vehicleNum*3; k++) {
-                                    newPlayerArray[i][k]= dummyPemain[i][k];
-                                    newPlayerArray[i][(vehicleNum*3)] = dummyFitness[i];
-                                }
-                            }
-                        }
+                        cekfitnessbaru(newPlayerArray,vehicleNum,nPlayers,dummyFitness,fitness,dummyPemain);
                         hitungsuperstarplayer(nPlayers, min, newPlayerArray, vehicleNum, superstarplayer);
                         hitungstarplayer(nPlayer, min, newPlayerArray, vehicleNum, starplayer, nTeam, nFP);
                         System.out.println("");
@@ -409,6 +379,16 @@ public class Main {
 
     }
 
+    public static void cekfitnessbaru(double [][] newPlayerArray, int vehicleNum, int nPlayers, int [] dummyFitness, int [] fitness, double [][] dummyPemain){
+        for (int i = 0; i < nPlayers; i++) {
+            if (dummyFitness[i]<=fitness[i]){
+                for (int k = 0; k < vehicleNum*3; k++) {
+                    newPlayerArray[i][k]= dummyPemain[i][k];
+                    newPlayerArray[i][(vehicleNum*3)] = dummyFitness[i];
+                }
+            }
+        }
+    }
 
     public static void hitungsuperstarplayer(int nPlayers, double min, double [][] newPlayerArray, int vehicleNum, double []superstarplayer){
         System.out.println("Super Star Player =");
@@ -423,7 +403,6 @@ public class Main {
         for (int j = 0; j < (vehicleNum*3)+1; j++) {
             System.out.format("%8.2f", superstarplayer[j]);
         }
-
         System.out.println("");
         System.out.println("");
     }
@@ -875,8 +854,6 @@ public class Main {
                 }while(cek==1);
             }
         } // tutup loop pemain
-
-
     }
 
     public static void bentukrute(int capacity,int resetcustomerNum, int [][] customerList, int vehicleNum, double [][] vehicle, double [][] player,double [] coorx, double [] coory,double[][] matriksjarak, int customerNum, int nPlayers, int[][][] rute, int [][] banya, int []demand, int[][] dummyfit, int[][][]bestrute){
