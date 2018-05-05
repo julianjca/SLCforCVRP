@@ -127,48 +127,31 @@ public class Main {
 
         //List Pelanggan
         int customerList[][]=new int[nPlayers][customerNum];
-        for(int c=0;c<nPlayers;c++){
-            int z=1;
-            for(int a=0;a<customerNum;a++){
-                customerList[c][a]=z;
-                z++;
-            }
-        }
 
-        //Urutin list pelanggan berdasarkan jarak dari depot terbesar
-        double sementara5=-10000;
-        int simpan =0;
-        int tukar = 0;
-        int posisi =0;
-
-        for(int a=0;a<nPlayers;a++){
-            for(int b=0;b<(customerNum-1);b++){
-                sementara5 = -10000;
-                for(int c=b;c<customerNum;c++){
-                    if(matriksjarak[0][customerList[a][c]]>sementara5){
-                        simpan = customerList[a][c];
-                        posisi=c;
-                        sementara5 = matriksjarak[0][customerList[a][c]];
-                    }
-                }
-                tukar=customerList[a][b];
-                customerList[a][b]=simpan;
-                customerList[a][posisi]=tukar;
-
-            }
-        }
 
         //Buat Rute
         double[][]vehicle = new double[vehicleNum][3];
         int rute[][][] = new int[nPlayers][vehicleNum][customerNum];
         int [][]banya = new int[nPlayers][vehicleNum];
-        bentukrute(capacity,simpan,posisi,sementara5,resetcustomerNum,customerList,vehicleNum, vehicle, player, coorx, coory, matriksjarak, customerNum, nPlayers, rute, banya, demand, tukar);
-
-
-        //2opt local improvement di setiap rute
         int [][]dummyfit = new int[nPlayers][vehicleNum];
         int bestrute[][][] = new int[nPlayers][vehicleNum][customerNum];
-        twoopt(simpan,banya,vehicleNum, bestrute,rute,dummyfit, nPlayers,matriksjarak,customerNum);
+        bentukrute(capacity,resetcustomerNum,customerList,vehicleNum, vehicle, player, coorx, coory, matriksjarak, customerNum, nPlayers, rute, banya, demand,dummyfit, bestrute);
+        for (int i = 0; i < nPlayers; i++) {
+            for (int j = 0; j < vehicleNum; j++) {
+                banya [i][j] = 0;
+            }
+        }
+
+        /*for (int i = 0; i < nPlayers; i++) {
+            for (int j = 0; j < vehicleNum; j++) {
+                System.out.println(banya[i][j]);
+            }
+            System.out.println("");
+        }*/
+
+        //2opt local improvement di setiap rute
+
+        //twoopt(simpan,banya,vehicleNum, bestrute,rute,dummyfit, nPlayers,matriksjarak,customerNum);
 
 
         //Hitung Fitness
@@ -210,11 +193,11 @@ public class Main {
         });
 
 
-        System.out.println("Atribut Pemain setelah diurutkan dari fitness paling kecil :");
-        System.out.println("");
+        //System.out.println("Atribut Pemain setelah diurutkan dari fitness paling kecil :");
+        //System.out.println("");
 
         //Print ulang array yang udah disort
-        for (int i = 0; i < nPlayers; i++) {
+        /*for (int i = 0; i < nPlayers; i++) {
             System.out.println("Pemain " + (i + 1) + " :");
             for (int j = 0; j < (3 * vehicleNum)+1; j++) {
                 System.out.format("%8.2f", newPlayerArray[i][j]);
@@ -223,7 +206,7 @@ public class Main {
         }
 
         System.out.println("");
-        System.out.println("");
+        System.out.println("");*/
 
         //Super Star Player
         double superstarplayer[] = new double[(vehicleNum*3)+1];
@@ -247,6 +230,7 @@ public class Main {
         double dummyPemain [][] = new double[nPlayers][customerNum*3+1];
         int ruteImitasi [][][] = new int[nPlayers][vehicleNum][customerNum];
         int bestruteImitasi[][][] = new int[nPlayers][vehicleNum][customerNum];
+        int [][]banyaSementara = new int[nPlayers][vehicleNum];
 
         for (int team = 0; team< nTeam;team++){
             for (int acuan = 0; acuan < nTeam; acuan++) {
@@ -259,11 +243,16 @@ public class Main {
                 double TPk = teampower[team];
                 double TPi = teampower[acuan];
                 double PVk,PVi;
+                int kondisi1=0;
                 if (team!=acuan){
                     PVk = TPk/(TPi+TPk);
+                    System.out.println("Probability Victory Tim k = "+PVk);
                     PVi = 1-PVk;
+                    System.out.println("Probability Victory Tim i = "+PVi);
                     double MR = Math.random();
-                    if (PVk>MR){
+                    System.out.println(MR);
+                    if (TPk<=TPi&&MR>=PVk){
+                        System.out.println("Tim yang menang adalah tim : " + (team+1));
                         //lakukan imitasi pada team;
                         for (int pemain = team*nPlayer; pemain < team*nPlayer+nFP; pemain++) {
                             for (int dim = 0; dim < vehicleNum*3; dim++) {
@@ -286,8 +275,9 @@ public class Main {
                                 //System.out.println(x2);
                                 //System.out.println("");
                                 dummyPemain [pemain][dim] = (miu1*newPlayerArray[pemain][dim])+(tao1*(superstarplayer[dim]-newPlayerArray[pemain][dim]))+(tao2*(starplayer[team][dim]-newPlayerArray[pemain][dim]));
-                                //System.out.format("%8.2f", dummyPemain[pemain][dim]);
-                                bentukrute(capacity,simpan,posisi,sementara5,resetcustomerNum,customerList,vehicleNum, vehicle, dummyPemain, coorx, coory, matriksjarak, customerNum, nPlayers, ruteImitasi, banya, demand, tukar);
+                                System.out.format("%8.2f", dummyPemain[pemain][dim]);
+
+                                //bentukrute(capacity,resetcustomerNum,customerList,vehicleNum, vehicle, dummyPemain, coorx, coory, matriksjarak, customerNum, kondisi1, ruteImitasi, banya, demand,dummyfit, bestruteImitasi);
                                 /*twoopt(simpan,banya,vehicleNum,bestruteImitasi,rute,dummyfit,nPlayers,matriksjarak,customerNum);
                                 hitungfitness(vehicleNum,customerNum,rute,fitness,nPlayers,matriksjarak,player,minpemain,rutemin);
                                 hitungsuperstarplayer(nPlayers, min, newPlayerArray, vehicleNum, superstarplayer);
@@ -296,12 +286,11 @@ public class Main {
                                         newPlayerArray[countplayer][(vehicleNum*3)] = fitness[countplayer];
 
                                 }*/
-
-
                             }
-
                             System.out.println("");
                         }
+                        System.out.println("");
+                        bentukrute(capacity,resetcustomerNum,customerList,vehicleNum, vehicle, dummyPemain, coorx, coory, matriksjarak, customerNum, kondisi1, ruteImitasi, banya, demand,dummyfit, bestruteImitasi);
                     } else{
                         //lakukan inmitasi pada acuan;
                         break;
@@ -420,7 +409,7 @@ public class Main {
             if(count<customerNum){
                 fitness[i]=100000;
             }
-            System.out.println("Total Fitness Pemain " +(i+1) +" = "+ fitness[i] + "\n");
+            //System.out.println("Total Fitness Pemain " +(i+1) +" = "+ fitness[i] + "\n");
         }
 
         //Save solusi terbaik
@@ -466,7 +455,38 @@ public class Main {
     }
 
 
-    public static void bentukrute(int capacity, int simpan, int posisi, double sementara5, int resetcustomerNum, int [][] customerList, int vehicleNum, double [][] vehicle, double [][] player,double [] coorx, double [] coory,double[][] matriksjarak, int customerNum, int nPlayers, int[][][] rute, int [][] banya, int []demand, int tukar){
+    public static void bentukrute(int capacity,int resetcustomerNum, int [][] customerList, int vehicleNum, double [][] vehicle, double [][] player,double [] coorx, double [] coory,double[][] matriksjarak, int customerNum, int nPlayers, int[][][] rute, int [][] banya, int []demand, int[][] dummyfit, int[][][]bestrute){
+        for(int c=0;c<nPlayers;c++){
+            int z=1;
+            for(int a=0;a<customerNum;a++){
+                customerList[c][a]=z;
+                z++;
+            }
+        }
+
+        //Urutin list pelanggan berdasarkan jarak dari depot terbesar
+        double sementara5=-10000;
+        int simpan =0;
+        int tukar = 0;
+        int posisi =0;
+
+        for(int a=0;a<nPlayers;a++){
+            for(int b=0;b<(customerNum-1);b++){
+                sementara5 = -10000;
+                for(int c=b;c<customerNum;c++){
+                    if(matriksjarak[0][customerList[a][c]]>sementara5){
+                        simpan = customerList[a][c];
+                        posisi=c;
+                        sementara5 = matriksjarak[0][customerList[a][c]];
+                    }
+                }
+                tukar=customerList[a][b];
+                customerList[a][b]=simpan;
+                customerList[a][posisi]=tukar;
+
+            }
+        }
+
         int sementara2 = 0;
         int cek1 =0;
         int[] kapa = new int[vehicleNum];
@@ -497,7 +517,7 @@ public class Main {
                     //System.out.print("jarak kendaraan "+(a+1)+" dengan pelanggan "+(c+1)+" = " + distance[a][c]);
                     //System.out.println("");
                 }
-                System.out.println("");
+                //System.out.println("");
             }
 
             //Masukin Ke mungkin semua pelanggan yang mungkin dimasukin
@@ -517,7 +537,7 @@ public class Main {
                         hitung[i][a]++;
                     }
                 }
-                System.out.println("");
+                //System.out.println("");
             }
 
             //Cek apakah ada pelanggan yang sama di mungkin
@@ -666,10 +686,6 @@ public class Main {
         }
         customerNum=resetcustomerNum;
 
-
-    }
-
-    public static void twoopt(int simpan, int [][] banya, int vehicleNum, int [][][] bestrute, int [][][] rute,int[][] dummyfit, int nPlayers,double[][] matriksjarak, int customerNum){
         int mulai=0;
         int dummy = 0;
         int cek=0;
@@ -740,5 +756,81 @@ public class Main {
             }
         } // tutup loop pemain
 
-    }}
+
+    }
+
+    /*public static void twoopt(int simpan, int [][] banya, int vehicleNum, int [][][] bestrute, int [][][] rute,int[][] dummyfit, int nPlayers,double[][] matriksjarak, int customerNum){
+        int mulai=0;
+        int dummy = 0;
+        int cek=0;
+        int simpanb =0;
+        int simpanc =0;
+        int simpanpel =0;
+
+        for(int i=0;i<nPlayers;i++){
+            for(int a=0;a<vehicleNum;a++){
+                dummy=100000000;
+                do{
+                    cek=0;
+                    simpanb=0;
+                    simpanc=0;
+                    simpan=0;
+                    simpanpel=0;
+                    for (int b = 0; b < banya[i][a]; b++) {
+                        bestrute[i][a][b] = rute[i][a][b];
+                    }
+
+                    for(int b=0;b<banya[i][a];b++){
+                        for(int c=0;c<banya[i][a];c++){
+                            simpan = rute[i][a][b];
+                            if(c<b){
+                                for(int d=b;d>c;d--){
+                                    rute[i][a][d]=rute[i][a][d-1];
+                                }
+                                rute[i][a][c]=simpan;
+                            }else if(c>b){
+                                for(int d=b;d<c;d++){
+                                    rute[i][a][d]=rute[i][a][d+1];
+                                }
+                                rute[i][a][c]=simpan;
+                            }
+                            dummyfit[i][a]=0;
+                            mulai=0;
+                            for (int j = 0; j < customerNum; j++) {//hitung fitness
+                                if (rute[i][a][j] != 0) {
+                                    dummyfit[i][a] += matriksjarak[mulai][rute[i][a][j]];
+                                    mulai = rute[i][a][j];
+                                }
+                            }
+                            dummyfit[i][a] += matriksjarak[mulai][0];
+                            if(dummyfit[i][a]<dummy){
+                                dummy=dummyfit[i][a];
+                                simpanb = b;
+                                simpanc = c;
+                                simpanpel=simpan;
+                                cek=1;
+                            }
+                            for (int e = 0; e < banya[i][a]; e++) {//reset ke rute awal
+                                rute[i][a][e] = bestrute[i][a][e];
+                            }
+                        }
+                    }
+                    if(simpanc<simpanb){
+                        for(int d=simpanb;d>simpanc;d--){
+                            rute[i][a][d]=rute[i][a][d-1];
+                        }
+                        rute[i][a][simpanc]=simpanpel;
+                    }else if(simpanc>simpanb){
+                        for(int d=simpanb;d<simpanc;d++){
+                            rute[i][a][d]=rute[i][a][d+1];
+                        }
+                        rute[i][a][simpanc]=simpanpel;
+                    }
+                }while(cek==1);
+            }
+        } // tutup loop pemain
+
+    }*/
+
+}
 
