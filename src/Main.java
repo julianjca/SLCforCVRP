@@ -117,12 +117,12 @@ public class Main {
         //Penentuan Atribut Awal Pemain
         double player[][] = new double[nPlayers][(3 * vehicleNum)];
         for (int i = 0; i < nPlayers; i++) {
-            System.out.println("Pemain " + (i + 1) + " :");
+            //System.out.println("Pemain " + (i + 1) + " :");
             for (int j = 0; j < (3 * vehicleNum); j++) {
                 player[i][j] = (Math.random() * (coorMax - coorMin)) + coorMin;
-                System.out.format("%8.2f", player[i][j]);
+                //System.out.format("%8.2f", player[i][j]);
             }
-            System.out.println("");
+            //System.out.println("");
         }
 
         //List Pelanggan
@@ -228,11 +228,30 @@ public class Main {
 
 
         double dummyPemain [][] = new double[nPlayers][customerNum*3+1];
+        for (int i = 0; i < nPlayers; i++) {
+            for (int j = 0; j < ((vehicleNum*3)+1); j++) {
+                dummyPemain[i][j] = newPlayerArray [i][j];
+            }
+        }
+
+        for (int i = 0; i < nPlayers; i++) {
+            System.out.println("Pemain " + (i+1) +" : ");
+            for (int j = 0; j < (vehicleNum*3)+1; j++) {
+                System.out.format("%8.2f", dummyPemain[i][j]);
+
+            }
+            System.out.println("");
+        }
+        System.out.println("");
+        System.out.println("");
+
         int ruteImitasi [][][] = new int[nPlayers][vehicleNum][customerNum];
         int bestruteImitasi[][][] = new int[nPlayers][vehicleNum][customerNum];
         int [][]banyaSementara = new int[nPlayers][vehicleNum];
 
         for (int team = 0; team< nTeam;team++){
+            System.out.println("Pertandingan untuk tim : "+ (team+1));
+            System.out.println("");
             for (int acuan = 0; acuan < nTeam; acuan++) {
                 double miu1;
                 double miu2;
@@ -247,11 +266,11 @@ public class Main {
                 if (team!=acuan){
                     PVk = TPk/(TPi+TPk);
                     System.out.println("Probability Victory Tim k = "+PVk);
-                    PVi = 1-PVk;
-                    System.out.println("Probability Victory Tim i = "+PVi);
+                    //PVi = 1-PVk;
+                    //System.out.println("Probability Victory Tim i = "+PVi);
                     double MR = Math.random();
                     System.out.println(MR);
-                    if (TPk<=TPi&&MR>=PVk){
+                    if (MR>=PVk){
                         System.out.println("Tim yang menang adalah tim : " + (team+1));
                         //lakukan imitasi pada team;
                         for (int pemain = team*nPlayer; pemain < team*nPlayer+nFP; pemain++) {
@@ -276,7 +295,6 @@ public class Main {
                                 //System.out.println("");
                                 dummyPemain [pemain][dim] = (miu1*newPlayerArray[pemain][dim])+(tao1*(superstarplayer[dim]-newPlayerArray[pemain][dim]))+(tao2*(starplayer[team][dim]-newPlayerArray[pemain][dim]));
                                 System.out.format("%8.2f", dummyPemain[pemain][dim]);
-
                                 //bentukrute(capacity,resetcustomerNum,customerList,vehicleNum, vehicle, dummyPemain, coorx, coory, matriksjarak, customerNum, kondisi1, ruteImitasi, banya, demand,dummyfit, bestruteImitasi);
                                 /*twoopt(simpan,banya,vehicleNum,bestruteImitasi,rute,dummyfit,nPlayers,matriksjarak,customerNum);
                                 hitungfitness(vehicleNum,customerNum,rute,fitness,nPlayers,matriksjarak,player,minpemain,rutemin);
@@ -289,18 +307,298 @@ public class Main {
                             }
                             System.out.println("");
                         }
+
+                        //buat list pelanggan
+                        for(int c=0;c<nPlayers;c++){
+                            int z=1;
+                            for(int a=0;a<customerNum;a++){
+                                customerList[c][a]=z;
+                                z++;
+                            }
+                        }//tutup list pelanggan
+
+                        //Urutin list pelanggan berdasarkan jarak dari depot terbesar
+                        double sementara5=-10000;
+                        int simpan =0;
+                        int tukar = 0;
+                        int posisi =0;
+
+                        for(int a=0;a<nPlayers;a++){
+                            for(int b=0;b<(customerNum-1);b++){
+                                sementara5 = -10000;
+                                for(int c=b;c<customerNum;c++){
+                                    if(matriksjarak[0][customerList[a][c]]>sementara5){
+                                        simpan = customerList[a][c];
+                                        posisi=c;
+                                        sementara5 = matriksjarak[0][customerList[a][c]];
+                                    }
+                                }
+                                tukar=customerList[a][b];
+                                customerList[a][b]=simpan;
+                                customerList[a][posisi]=tukar;
+
+                            }
+                        }
+                        int sementara2 = 0;
+                        int cek1 =0;
+                        int[] kapa = new int[vehicleNum];
+                        //Tentukan referensi kendaraan (koordinat dan radius pelayanan)
+                        for(int i=0;i<nPlayers;i++){//Setiap Pemain
+                            customerNum=resetcustomerNum;
+                            System.out.println("Pemain "+ (i+1));
+                            //for (int j = 0; j < customerNum; j++) {
+                            //  System.out.println(customerList[i][j]);
+                            //System.out.println("");
+                            //}
+                            int b=0;
+                            for(int j=0;j<vehicleNum;j++){//Setiap Kendaraan
+                                for(int k=0;k<3;k++){//Setiap Dimensi Kendaraan
+                                    vehicle[j][k]=player[i][b];
+                                    b+=1;
+                                }
+                            }
+
+                            //Hitung Jarak dari referensi kendaraan dengan semua pelanggan
+                            double [][]distance = new double[vehicleNum][customerNum];
+                            double sementara3 = 0;
+                            for(int a=0;a<vehicleNum;a++){
+                                for(int c=0;c<customerNum;c++){
+                                    sementara3+=Math.pow((vehicle[a][0]-coorx[c]),2)+Math.pow((vehicle[a][1]-coory[c]),2);
+                                    distance[a][c] = Math.sqrt(sementara3);
+                                    sementara3=0;
+                                    //System.out.print("jarak kendaraan "+(a+1)+" dengan pelanggan "+(c+1)+" = " + distance[a][c]);
+                                    //System.out.println("");
+                                }
+                                //System.out.println("");
+                            }
+
+                            //Masukin Ke mungkin semua pelanggan yang mungkin dimasukin
+                            int [][]mungkin = new int [vehicleNum][customerNum];
+                            int [][]hitung = new int [nPlayers][vehicleNum];
+                            for(int a=0;a<vehicleNum;a++){
+                                int c=0;
+                                System.out.print("Kendaraan "+(a+1)+" = ");
+
+                                hitung[i][a]=0;
+                                for(b=0;b<customerNum;b++){
+                                    if(distance[a][b]<=vehicle[a][2]){
+                                        mungkin[a][c] = b+1;
+                                        System.out.format("%5d",mungkin[a][c]);
+
+                                        c++;
+                                        hitung[i][a]++;
+                                    }
+                                }
+                                System.out.println("");
+                            }
+
+                            //Cek apakah ada pelanggan yang sama di mungkin
+                            for(int a=0;a<(vehicleNum-1);a++){
+                                for(b=(a+1);b<vehicleNum;b++){
+                                    if((hitung[i][a]>0)&&(hitung[i][b]>0)){
+                                        for(int c=0;c<hitung[i][a];c++){//pelanggan yang mungkin dilayani kendaraan 1
+                                            for(int d=0;d<hitung[i][b];d++){//pelanggan yang mungkin dilayani kendaraan 2
+                                                if(mungkin[a][c]==mungkin[b][d]){
+                                                    if(distance[a][mungkin[a][c]-1]<distance[b][mungkin[b][d]-1]){
+                                                        //Hapus yang di pelanggan di kendaraan 2
+                                                        for(int e=d;e<(hitung[i][b]-1);e++){
+                                                            mungkin[b][e]=mungkin[b][e+1];
+                                                        }
+                                                        hitung[i][b]--;
+                                                    }else{
+                                                        //Hapus pelanggan yang di kendaraan 1
+                                                        for(int e=c;e<(hitung[i][a]-1);e++){
+                                                            mungkin[a][e]=mungkin[a][e+1];
+                                                        }
+                                                        hitung[i][a]--;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            //Urutin Pelanggan di mungkin yang uda dihapus berdasarkan jarak
+                            sementara5=10000;
+                            simpan =0;
+                            posisi =0;
+                            for(int a=0;a<vehicleNum;a++){
+                                if(hitung[i][a]>0){
+                                    for(b=0;b<(hitung[i][a]-1);b++){//pelanggan di rute a
+                                        sementara5 = 10000;
+                                        for(int c=b;c<hitung[i][a];c++){
+                                            if(distance[a][mungkin[a][c]-1]<sementara5){
+                                                simpan = mungkin[a][c];
+                                                posisi=c;
+                                                sementara5 = distance[a][mungkin[a][c]-1];
+                                            }
+                                        }
+                                        tukar=mungkin[a][b];
+                                        mungkin[a][b]=simpan;
+                                        mungkin[a][posisi]=tukar;
+                                    }
+                                }
+                            }
+
+                            //Masukin Pelanggan mungkin ke rute
+                            int rutepos[];
+                            kapa = new int[vehicleNum];
+                            Arrays.fill(kapa,capacity);
+                            rutepos=new int[vehicleNum];
+                            for(int a=0;a<vehicleNum;a++){
+                                if(hitung[i][a]>0){
+                                    for(b=0;b<hitung[i][a];b++){
+                                        if ((kapa[a] - demand[mungkin[a][b]]) >= 0) {
+                                            rute[i][a][rutepos[a]] = mungkin[a][b];
+                                            kapa[a] = kapa[a] - demand[mungkin[a][b]];
+                                            banya[i][a]++;
+                                            rutepos[a]++;
+                                        }
+                                    }
+                                }
+                            }
+
+                            //Hapus daftar pelanggan yang uda masuk ke rute dari daftar pelanggan
+                            for(int a=0;a<vehicleNum;a++){
+                                for(b=0;b<rutepos[a];b++){
+                                    for(int z=0;z<customerNum;z++){
+                                        if(customerList[i][z]==rute[i][a][b]){
+                                            //Hapus pelanggan di daftar pelanggan
+                                            for(int e=z;e<(customerNum-1);e++){
+                                                customerList[i][e]=customerList[i][e+1];
+                                            }
+                                            customerNum--;
+                                        }
+                                    }
+                                }
+                            }
+
+                            //Bentuk rute dari sisa pelanggan yang belum dilayani
+                            double sementara6;
+                            double sementara7;
+                            if(customerNum>=0){
+                                int prioritas=0;
+                                for(int a=0;a<customerNum;a++){//pelanggan yang belum dilayani
+                                    sementara6=10000;
+                                    sementara7=10000;
+                                    for(b=0;b<vehicleNum;b++){//kendaraan
+                                        //cari prioritas kendaraan
+                                        if(distance[b][customerList[i][a]-1]<sementara6){
+                                            sementara6=distance[b][customerList[i][a]-1];
+                                            prioritas=b;
+                                        }
+                                    }
+                                    if(kapa[prioritas]-demand[customerList[i][a]]>=0){
+                                        kapa[prioritas] = kapa[prioritas] - demand[customerList[i][a]];
+                                        rute[i][prioritas][rutepos[prioritas]]=customerList[i][a];
+                                        banya[i][prioritas]++;
+                                        rutepos[prioritas]++;
+                                    }else{
+                                        break;
+                                    }
+                                }
+
+                                //Hapus daftar pelanggan yang uda masuk ke rute dari daftar pelanggan
+                                for(int a=0;a<vehicleNum;a++){
+                                    for(b=0;b<rutepos[a];b++){
+                                        for(int z=0;z<customerNum;z++){
+                                            if(customerList[i][z]==rute[i][a][b]){
+                                                //Hapus pelanggan di daftar pelanggan
+                                                for(int e=z;e<(customerNum-1);e++){
+                                                    customerList[i][e]=customerList[i][e+1];
+                                                }
+                                                customerNum--;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else{
+                                break;
+                            }
+
+
+                            if(customerNum>=0){
+                                for (b = 0; b < customerNum; b++) {//tiap pelanggan yang belum dilayani
+                                    for (int a = 0; a < vehicleNum; a++) {//tiap rute
+                                        if ((kapa[a] - demand[customerList[i][b]]) >= 0) {
+                                            rute[i][a][rutepos[a]] = customerList[i][b];
+                                            kapa[a] = kapa[a] - demand[customerList[i][b]];
+                                            banya[i][a]++;
+                                            rutepos[a]++;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }else{
+                                break;
+                            }
+
+                        }
+                        customerNum=resetcustomerNum;
+
+                    }
+
+                    if (MR<PVk){
+                        System.out.println("Tim yang menang adalah tim : " + (acuan+1));
+                        //lakukan imitasi pada team;
+                        for (int pemain = acuan*nPlayer; pemain < acuan*nPlayer+nFP; pemain++) {
+                            for (int dim = 0; dim < vehicleNum*3; dim++) {
+                                miu1 = (Math.random() * (1 - 0.5)) + 0.5;
+                                //System.out.println(miu1);
+                                //System.out.println("");
+                                miu2 = (Math.random() * (0.5 - 0)) + 0;
+                                //System.out.println(miu2);
+                                //System.out.println("");
+                                tao1 = (Math.random() * (1 - 0)) + 0;
+                                //System.out.println(tao1);
+                                //System.out.println("");
+                                tao2 = (Math.random() * (1 - 0)) + 0;
+                                //System.out.println(tao2);
+                                //System.out.println("");
+                                x1 = (Math.random() * (1 - 0.9)) + 0.9;
+                                //System.out.println(x1);
+                                //System.out.println("");
+                                x2 = (Math.random() * (0.6 - 0.4)) + 0.4;
+                                //System.out.println(x2);
+                                //System.out.println("");
+                                dummyPemain [pemain][dim] = (miu1*newPlayerArray[pemain][dim])+(tao1*(superstarplayer[dim]-newPlayerArray[pemain][dim]))+(tao2*(starplayer[team][dim]-newPlayerArray[pemain][dim]));
+                                System.out.format("%8.2f", dummyPemain[pemain][dim]);
+
+                                /*twoopt(simpan,banya,vehicleNum,bestruteImitasi,rute,dummyfit,nPlayers,matriksjarak,customerNum);
+                                hitungfitness(vehicleNum,customerNum,rute,fitness,nPlayers,matriksjarak,player,minpemain,rutemin);
+                                hitungsuperstarplayer(nPlayers, min, newPlayerArray, vehicleNum, superstarplayer);
+                                hitungstarplayer(nPlayer, min, newPlayerArray, vehicleNum, starplayer, nTeam, nFP);
+                                for (int countplayer = 0; countplayer < nPlayers; countplayer++) {
+                                        newPlayerArray[countplayer][(vehicleNum*3)] = fitness[countplayer];
+
+                                }*/
+                            }
+                            System.out.println("");
+                        }
+
                         System.out.println("");
-                        bentukrute(capacity,resetcustomerNum,customerList,vehicleNum, vehicle, dummyPemain, coorx, coory, matriksjarak, customerNum, kondisi1, ruteImitasi, banya, demand,dummyfit, bestruteImitasi);
-                    } else{
-                        //lakukan inmitasi pada acuan;
-                        break;
+
                     }
                 }
             }
         }
+        System.out.println("");
 
+        /*for (int i = 0; i < nPlayers; i++) {
+            System.out.println("Pemain " + (i+1) +" : ");
+            for (int j = 0; j < (vehicleNum*3)+1; j++) {
+                System.out.format("%8.2f", dummyPemain[i][j]);
+
+            }
+            System.out.println("");
+        }
+        System.out.println("");
+        System.out.println("");*/
 
     }
+
 
     public static void hitungsuperstarplayer(int nPlayers, double min, double [][] newPlayerArray, int vehicleNum, double []superstarplayer){
         System.out.println("Super Star Player =");
@@ -525,13 +823,13 @@ public class Main {
             int [][]hitung = new int [nPlayers][vehicleNum];
             for(int a=0;a<vehicleNum;a++){
                 int c=0;
-                System.out.print("Kendaraan "+(a+1)+" = ");
+                //System.out.print("Kendaraan "+(a+1)+" = ");
 
                 hitung[i][a]=0;
                 for(b=0;b<customerNum;b++){
                     if(distance[a][b]<=vehicle[a][2]){
                         mungkin[a][c] = b+1;
-                        System.out.format("%5d",mungkin[a][c]);
+                        //System.out.format("%5d",mungkin[a][c]);
 
                         c++;
                         hitung[i][a]++;
@@ -702,6 +1000,7 @@ public class Main {
                     simpanc=0;
                     simpan=0;
                     simpanpel=0;
+
                     for (int b = 0; b < banya[i][a]; b++) {
                         bestrute[i][a][b] = rute[i][a][b];
                     }
