@@ -234,7 +234,7 @@ public class Main {
             }
         }
 
-        for (int i = 0; i < nPlayers; i++) {
+        /*for (int i = 0; i < nPlayers; i++) {
             System.out.println("Pemain " + (i+1) +" : ");
             for (int j = 0; j < (vehicleNum*3)+1; j++) {
                 System.out.format("%8.2f", dummyPemain[i][j]);
@@ -243,18 +243,24 @@ public class Main {
             System.out.println("");
         }
         System.out.println("");
-        System.out.println("");
+        System.out.println("");*/
 
         int ruteImitasi [][][] = new int[nPlayers][vehicleNum][customerNum];
         int bestruteImitasi[][][] = new int[nPlayers][vehicleNum][customerNum];
         int [][]banyaSementara = new int[nPlayers][vehicleNum];
         int []dummyFitness = new int[nPlayers];
 
+        //masukin nilai fitness ke dummy fitness
         for (int i = 0; i < nPlayers; i++) {
-            System.out.println("Pemain " + (i+1) +" : ");
+            //System.out.println("Pemain " + (i+1) +" : ");
             dummyFitness[i]= fitness[i];
-
         }
+
+        //hitung rata rata kekuatan FP tim i
+        double rataratakekuatan [] = new double[nTeam];
+        ratarataFP(newPlayerArray, rataratakekuatan, nTeam, nFP, nPlayer, vehicleNum);
+
+
 
         for (int team = 0; team< nTeam;team++){
             System.out.println("Pertandingan untuk tim : "+ (team+1));
@@ -277,8 +283,11 @@ public class Main {
                     //System.out.println("Probability Victory Tim i = "+PVi);
                     double MR = Math.random();
                     //System.out.println(MR);
+
+                    //syarat menang
                     if (MR>=PVk){
                         //System.out.println("Tim yang menang adalah tim : " + (team+1));
+
                         //lakukan imitasi pada team;
                         for (int pemain = team*nPlayer; pemain < team*nPlayer+nFP; pemain++) {
                             for (int dim = 0; dim < vehicleNum*3; dim++) {
@@ -308,11 +317,13 @@ public class Main {
                         }
                         bentukrute2(capacity,resetcustomerNum,customerList,vehicleNum, vehicle, dummyPemain, coorx, coory, matriksjarak, customerNum, nPlayers, rute, banya, demand,dummyfit, bestrute);
                         hitungfitness(vehicleNum,customerNum,rute,dummyFitness,nPlayers,matriksjarak,player,minpemain,rutemin);
+                        //cek apakah fitness baru lebih kecil atau tidak
                         cekfitnessbaru(newPlayerArray,vehicleNum,nPlayers,dummyFitness,fitness,dummyPemain);
                         hitungsuperstarplayer(nPlayers, min, newPlayerArray, vehicleNum, superstarplayer);
                         hitungstarplayer(nPlayer, min, newPlayerArray, vehicleNum, starplayer, nTeam, nFP);
                     }
 
+                    //syarat menang
                     if (MR<PVk){
                         System.out.println("Tim yang menang adalah tim : " + (acuan+1));
                         //lakukan imitasi pada team;
@@ -344,6 +355,7 @@ public class Main {
                         }
                         bentukrute2(capacity,resetcustomerNum,customerList,vehicleNum, vehicle, dummyPemain, coorx, coory, matriksjarak, customerNum, nPlayers, rute, banya, demand,dummyfit, bestrute);
                         hitungfitness(vehicleNum,customerNum,rute,dummyFitness,nPlayers,matriksjarak,player,minpemain,rutemin);
+                        //cek apakah fitness baru lebih kecil atau tidak
                         cekfitnessbaru(newPlayerArray,vehicleNum,nPlayers,dummyFitness,fitness,dummyPemain);
                         hitungsuperstarplayer(nPlayers, min, newPlayerArray, vehicleNum, superstarplayer);
                         hitungstarplayer(nPlayer, min, newPlayerArray, vehicleNum, starplayer, nTeam, nFP);
@@ -379,6 +391,18 @@ public class Main {
 
     }
 
+    public static void ratarataFP(double [][] newPlayerArray, double [] rataratakekuatan, int nTeam, int nFP, int nPlayer, int vehicleNum){
+        double dummykekuatan = 0;
+        for (int team = 0; team < nTeam; team++) {
+            dummykekuatan = 0;
+            for (int pemain = team*nPlayer; pemain < team*nPlayer+nFP; pemain++) {
+                dummykekuatan += newPlayerArray[pemain][vehicleNum*3];
+            }
+            rataratakekuatan[team] = dummykekuatan/nFP;
+            System.out.println(rataratakekuatan[team]);
+        }
+    }
+
     public static void cekfitnessbaru(double [][] newPlayerArray, int vehicleNum, int nPlayers, int [] dummyFitness, int [] fitness, double [][] dummyPemain){
         for (int i = 0; i < nPlayers; i++) {
             if (dummyFitness[i]<=fitness[i]){
@@ -389,6 +413,7 @@ public class Main {
             }
         }
     }
+
 
     public static void hitungsuperstarplayer(int nPlayers, double min, double [][] newPlayerArray, int vehicleNum, double []superstarplayer){
         System.out.println("Super Star Player =");

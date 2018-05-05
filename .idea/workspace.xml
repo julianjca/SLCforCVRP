@@ -30,8 +30,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="10504">
-              <caret line="404" column="9" lean-forward="false" selection-start-line="404" selection-start-column="9" selection-end-line="404" selection-end-column="9" />
+            <state relative-caret-position="120">
+              <caret line="260" column="67" lean-forward="true" selection-start-line="260" selection-start-column="0" selection-end-line="261" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -42,7 +42,7 @@
       <file leaf-file-name="input.rtf" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/input.rtf">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-22">
+            <state relative-caret-position="156">
               <caret line="6" column="22" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="25" selection-end-column="6" />
               <folding />
             </state>
@@ -595,12 +595,12 @@
       <workItem from="1525002915311" duration="9683000" />
       <workItem from="1525441762369" duration="69000" />
       <workItem from="1525442416042" duration="10639000" />
-      <workItem from="1525486087173" duration="15575000" />
+      <workItem from="1525486087173" duration="17272000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64396000" />
+    <option name="totallyTimeSpent" value="66093000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -869,7 +869,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/input.rtf">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-22">
+        <state relative-caret-position="156">
           <caret line="6" column="22" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="25" selection-end-column="6" />
           <folding />
         </state>
@@ -877,8 +877,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10504">
-          <caret line="404" column="9" lean-forward="false" selection-start-line="404" selection-start-column="9" selection-end-line="404" selection-end-column="9" />
+        <state relative-caret-position="120">
+          <caret line="260" column="67" lean-forward="true" selection-start-line="260" selection-start-column="0" selection-end-line="261" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
