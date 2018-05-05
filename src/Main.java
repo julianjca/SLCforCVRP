@@ -12,7 +12,7 @@ public class Main {
         //Input CVRP
         //Jumlah Kendaraan
         System.out.print("Jumlah kendaraan = ");
-        int vehicleNum = 2;
+        int vehicleNum = 5;
         //int vehicleNum = input.nextInt();
 
         //Kapasitas
@@ -22,7 +22,7 @@ public class Main {
 
         //Jumlah Pelanggan
         System.out.print("Jumlah pelanggan = ");
-        int customerNum = 5;
+        int customerNum = 31;
         //int customerNum = input.nextInt();
         int resetcustomerNum = customerNum;
 
@@ -318,8 +318,7 @@ public class Main {
                         hitungfitness(vehicleNum,customerNum,rute,dummyFitness,nPlayers,matriksjarak,player,minpemain,rutemin);
                         //cek apakah fitness baru lebih kecil atau tidak
                         cekfitnessbaru(newPlayerArray,vehicleNum,nPlayers,dummyFitness,fitness,dummyPemain);
-                        subtitusi(team, rataratakekuatan, nFP, nPlayer, vehicleNum, x1, dummyPemain);
-
+                        provokasi(team, rataratakekuatan, nFP, nPlayer, vehicleNum, x1, dummyPemain);
                         bentukrute2(capacity,resetcustomerNum,customerList,vehicleNum, vehicle, dummyPemain, coorx, coory, matriksjarak, customerNum, nPlayers, rute, banya, demand,dummyfit, bestrute);
                         hitungfitness(vehicleNum,customerNum,rute,dummyFitness,nPlayers,matriksjarak,player,minpemain,rutemin);
                         //cek apakah fitness baru lebih kecil atau tidak
@@ -362,9 +361,11 @@ public class Main {
                         hitungfitness(vehicleNum,customerNum,rute,dummyFitness,nPlayers,matriksjarak,player,minpemain,rutemin);
                         //cek apakah fitness baru lebih kecil atau tidak
                         cekfitnessbaru(newPlayerArray,vehicleNum,nPlayers,dummyFitness,fitness,dummyPemain);
-                        subtitusi(team, rataratakekuatan, nFP, nPlayer, vehicleNum, x1, dummyPemain);
+                        provokasi(team, rataratakekuatan, nFP, nPlayer, vehicleNum, x1, dummyPemain);
                         bentukrute2(capacity,resetcustomerNum,customerList,vehicleNum, vehicle, dummyPemain, coorx, coory, matriksjarak, customerNum, nPlayers, rute, banya, demand,dummyfit, bestrute);
                         hitungfitness(vehicleNum,customerNum,rute,dummyFitness,nPlayers,matriksjarak,player,minpemain,rutemin);
+                        //cek apakah fitness baru lebih kecil atau tidak
+                        cekfitnessbaru(newPlayerArray,vehicleNum,nPlayers,dummyFitness,fitness,dummyPemain);
                         hitungsuperstarplayer(nPlayers, min, newPlayerArray, vehicleNum, superstarplayer);
                         hitungstarplayer(nPlayer, min, newPlayerArray, vehicleNum, starplayer, nTeam, nFP);
                         //System.out.println("");
@@ -399,7 +400,7 @@ public class Main {
 
     }
 
-    public static void subtitusi(int team, double [] []rataratakekuatan, int nFP, int nPlayer, int vehicleNum, double x1, double [][] dummyPemain) {
+    public static void provokasi(int team, double [] []rataratakekuatan, int nFP, int nPlayer, int vehicleNum, double x1, double [][] dummyPemain) {
         for (int pemain1 = (team*nPlayer)+nFP; pemain1 < team*nPlayer+nPlayer; pemain1++) {
             for (int dim = 0; dim < vehicleNum*3; dim++) {
                 x1 = (Math.random() * (1 - 0.9)) + 0.9;
@@ -564,7 +565,35 @@ public class Main {
             }
         }
 
-        /*Print Solusi Terbaik
+
+        //Print Solusi Terbaik
+        System.out.println("Solusi Setelah Provokasi : ");
+        System.out.println("Fitness terkecil : " + fitnessmin);
+        System.out.println("Pemain ke " + (pemainmin + 1));
+        System.out.print("Atribut Pemain : ");
+        for (int i = 0; i <(3*vehicleNum); i++) {
+            System.out.format("%8.2f",minpemain[pemainmin][i]);
+        }
+
+        System.out.println("\nRute saat itu : ");
+        for (int j = 0; j < vehicleNum; j++) {
+            if (rutemin[j][0] != 0) {
+                System.out.print("Rute " + (j + 1) + " : Depot ");
+            }
+            for (int k = 0; k < customerNum; k++) {
+                if (rutemin[j][k] != 0) {
+                    System.out.print(rutemin[j][k] + " ");
+                }
+            }
+            if (rutemin[j][0] != 0) {
+                System.out.println("Depot");
+            }
+        }
+
+    }
+
+    /*public static void printsolusi(int fitnessmin, int pemainmin, int vehicleNum, double[][]minpemain,int[][] rutemin, int customerNum){
+        //Print Solusi Terbaik
         System.out.println("Solusi Setelah Local Improvement : ");
         System.out.println("Fitness terkecil : " + fitnessmin);
         System.out.println("Pemain ke " + (pemainmin + 1));
@@ -586,9 +615,8 @@ public class Main {
             if (rutemin[j][0] != 0) {
                 System.out.println("Depot");
             }
-        }*/
-
-    }
+        }
+    }*/
 
 
     public static void bentukrute2(int capacity,int resetcustomerNum, int [][] customerList, int vehicleNum, double [][] vehicle, double [][] player,double [] coorx, double [] coory,double[][] matriksjarak, int customerNum, int nPlayers, int[][][] rute, int [][] banya, int []demand, int[][] dummyfit, int[][][]bestrute){
