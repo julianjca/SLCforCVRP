@@ -54,6 +54,9 @@ public class Main {
         nPlayers = nTeam * (nFP + nS);
         System.out.println("Jumlah Pemain Satu Liga = " + nPlayers);
 
+        //Masukan Jumlah Season
+        int season = input.nextInt();
+
 
         //Demand
         int[] demand = new int[customerNum + 1];
@@ -75,7 +78,7 @@ public class Main {
                 matriksjarak[i][k] = input.nextDouble();
             }
         }
-//Print matriks jarak
+        //Print matriks jarak
         for (int i = 0; i <= (customerNum); i++) {
             for (int k = 0; k <= (customerNum); k++) {
                 System.out.format("%7.2f", matriksjarak[i][k]);
@@ -113,7 +116,6 @@ public class Main {
         System.out.println("Coormin = " + coorMin);
         System.out.println("Coormax = " + coorMax);
 
-
         //Penentuan Atribut Awal Pemain
         double player[][] = new double[nPlayers][(3 * vehicleNum)];
         for (int i = 0; i < nPlayers; i++) {
@@ -128,7 +130,6 @@ public class Main {
         //List Pelanggan
         int customerList[][]=new int[nPlayers][customerNum];
 
-
         //Buat Rute
         double[][]vehicle = new double[vehicleNum][3];
         int rute[][][] = new int[nPlayers][vehicleNum][customerNum];
@@ -142,25 +143,12 @@ public class Main {
             }
         }
 
-        /*for (int i = 0; i < nPlayers; i++) {
-            for (int j = 0; j < vehicleNum; j++) {
-                System.out.println(banya[i][j]);
-            }
-            System.out.println("");
-        }*/
-
-        //2opt local improvement di setiap rute
-
-        //twoopt(simpan,banya,vehicleNum, bestrute,rute,dummyfit, nPlayers,matriksjarak,customerNum);
-
-
         //Hitung Fitness
         int []fitness = new int[nPlayers];
         double[][]minpemain = new double[nPlayers][(3*vehicleNum)];
         int[][] rutemin = new int[customerNum][customerNum];
         hitungfitness(vehicleNum,customerNum,rute,fitness,nPlayers,matriksjarak,player,minpemain,rutemin);
 
-        int t=0;
         customerNum = resetcustomerNum;
 
         //masukan pemain ke array baru buat diurutin
@@ -173,20 +161,10 @@ public class Main {
             }
         }
 
-        /*for (int i = 0; i < nPlayers; i++) {
-            System.out.println("Pemain " + (i+1) +" : ");
-            for (int j = 0; j < (vehicleNum*3)+1; j++) {
-                System.out.format("%8.2f", newPlayerArray[i][j]);
-
-            }
-            System.out.println("");
-        }
-        System.out.println("");
-        System.out.println(""); */
-        int season = 0;
-
+        // Loop Season
+        int counterSeason = 1;
         do {
-//sorting kecil ke besar
+        //sorting kecil ke besar
             Arrays.sort(newPlayerArray, new Comparator<double[]>() {
                 @Override
                 public int compare(double[] o1, double[] o2) {
@@ -199,16 +177,15 @@ public class Main {
             //System.out.println("");
 
             //Print ulang array yang udah disort
-        /*for (int i = 0; i < nPlayers; i++) {
+            /*for (int i = 0; i < nPlayers; i++) {
             System.out.println("Pemain " + (i + 1) + " :");
-            for (int j = 0; j < (3 * vehicleNum)+1; j++) {
-                System.out.format("%8.2f", newPlayerArray[i][j]);
-            }
+                for (int j = 0; j < (3 * vehicleNum)+1; j++) {
+                    System.out.format("%8.2f", newPlayerArray[i][j]);
+                }
             System.out.println("");
-        }
-
-        System.out.println("");
-        System.out.println("");*/
+                }
+            System.out.println("");
+            System.out.println("");*/
 
             //Super Star Player
             double superstarplayer[] = new double[(vehicleNum*3)+1];
@@ -216,14 +193,9 @@ public class Main {
             double starplayer[][] = new double[100][100];
             double min = 99999;
 
+            //Hitung Star Player dan Super Star Player
             hitungsuperstarplayer(nPlayers, min, newPlayerArray, vehicleNum, superstarplayer);
             hitungstarplayer(nPlayer, min, newPlayerArray, vehicleNum, starplayer, nTeam, nFP);
-
-            //Masukin ke tim dan cari star player
-            //double tim[][][] = new double[nTeam][nPlayers][(vehicleNum*3)+1];
-
-            //masuk ke tim
-            //masuktim(tim,vehicleNum,newPlayerArray,nPlayer,nTeam,nPlayers);
 
             double [] teampower = new double[nTeam];
             hitungteampower(teampower,vehicleNum,newPlayerArray,nPlayer,nTeam);
@@ -400,8 +372,8 @@ public class Main {
             System.out.println("");
             System.out.println("");
 
-            season++;
-        }while(season < 5);
+            counterSeason++;
+        }while(counterSeason <= season);
 
     }
 
