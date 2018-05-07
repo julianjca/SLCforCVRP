@@ -30,8 +30,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2206">
-              <caret line="450" column="75" lean-forward="false" selection-start-line="450" selection-start-column="75" selection-end-line="450" selection-end-column="75" />
+            <state relative-caret-position="-2600">
+              <caret line="31" column="17" lean-forward="false" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -42,8 +42,8 @@
       <file leaf-file-name="input.rtf" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/input.rtf">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="13182">
-              <caret line="507" column="0" lean-forward="false" selection-start-line="507" selection-start-column="0" selection-end-line="507" selection-end-column="0" />
+            <state relative-caret-position="654">
+              <caret line="1498" column="6" lean-forward="false" selection-start-line="1218" selection-start-column="0" selection-end-line="1498" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -73,7 +73,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>System.out</find>
       <find>pertandingan untuk</find>
       <find>minpemain</find>
       <find>rutemin</find>
@@ -103,6 +102,7 @@
       <find>1175</find>
       <find>1100</find>
       <find>berubah</find>
+      <find>provoka</find>
     </findStrings>
   </component>
   <component name="GradleLocalSettings">
@@ -602,12 +602,12 @@
       <workItem from="1525442416042" duration="10639000" />
       <workItem from="1525486087173" duration="21700000" />
       <workItem from="1525612501135" duration="9552000" />
-      <workItem from="1525672084779" duration="7091000" />
+      <workItem from="1525672084779" duration="7748000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="87164000" />
+    <option name="totallyTimeSpent" value="87821000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -934,16 +934,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/input.rtf">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13182">
-          <caret line="507" column="0" lean-forward="false" selection-start-line="507" selection-start-column="0" selection-end-line="507" selection-end-column="0" />
+        <state relative-caret-position="654">
+          <caret line="1498" column="6" lean-forward="false" selection-start-line="1218" selection-start-column="0" selection-end-line="1498" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2206">
-          <caret line="450" column="75" lean-forward="false" selection-start-line="450" selection-start-column="75" selection-end-line="450" selection-end-column="75" />
+        <state relative-caret-position="-2600">
+          <caret line="31" column="17" lean-forward="false" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -12,7 +12,7 @@ public class Main {
         //Input CVRP
         //Jumlah Kendaraan
         System.out.print("Jumlah kendaraan = ");
-        int vehicleNum = 5;
+        int vehicleNum = 7;
         //int vehicleNum = input.nextInt();
 
         //Kapasitas
@@ -22,7 +22,7 @@ public class Main {
 
         //Jumlah Pelanggan
         System.out.print("Jumlah pelanggan = ");
-        int customerNum = 31;
+        int customerNum = 56;
         //int customerNum = input.nextInt();
         int resetcustomerNum = customerNum;
 
