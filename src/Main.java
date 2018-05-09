@@ -12,17 +12,17 @@ public class Main {
         //Input CVRP
         //Jumlah Kendaraan
         System.out.print("Jumlah kendaraan = ");
-        int vehicleNum = 7;
+        int vehicleNum = 8;
         //int vehicleNum = input.nextInt();
 
         //Kapasitas
         System.out.print("Kapasitas Kendaraan= ");
-        int capacity = 100;
+        int capacity = 35;
         //int capacity = input.nextInt();
 
         //Jumlah Pelanggan
         System.out.print("Jumlah pelanggan = ");
-        int customerNum = 56;
+        int customerNum = 15;
         //int customerNum = input.nextInt();
         int resetcustomerNum = customerNum;
 
@@ -56,7 +56,7 @@ public class Main {
 
         //Masukan Jumlah Season
         //int season = input.nextInt();
-        int season = 5;
+        int season = 3;
 
         //Demand
         int[] demand = new int[customerNum + 1];
@@ -501,6 +501,7 @@ public class Main {
         }
         System.out.println("");
         System.out.println("");
+
 
     }
 
