@@ -52,7 +52,7 @@ public class Main {
 
         //Number of Season
         //int season = input.nextInt();
-        int season = 100;
+        int season = 5;
 
         //Demand
         int[] demand = new int[customerNum + 1];
