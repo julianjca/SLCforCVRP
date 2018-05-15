@@ -10,51 +10,47 @@ public class Main {
         System.out.println("SLC for CVRP");
 
         //Input CVRP
-        //Jumlah Kendaraan
-        System.out.print("Jumlah kendaraan = ");
+        //Vehicle
+        System.out.print("Number of Vehicle = ");
         int vehicleNum = 8;
         //int vehicleNum = input.nextInt();
 
-        //Kapasitas
-        System.out.print("Kapasitas Kendaraan= ");
+        //Vehicle Capacity
+        System.out.print("Vehicle's Capacity = ");
         int capacity = 35;
         //int capacity = input.nextInt();
 
-        //Jumlah Pelanggan
-        System.out.print("Jumlah pelanggan = ");
+        //Customers
+        System.out.print("Number of Customers = ");
         int customerNum = 15;
         //int customerNum = input.nextInt();
         int resetcustomerNum = customerNum;
 
         //Input SLC
-        //Jumlah Tim
-        System.out.print("Masukan Jumlah Tim = ");
+        //Teams
+        System.out.print("Number of Teams = ");
         nTeam = 5;
         //nTeam = input.nextInt();
 
-        //Jumlah Pertandingan
-        //totalMatch = (nTeam * (nTeam - 1)) / 2;
-        //System.out.println("Jumlah pertandingan ada = " + totalMatch);
-
-        //Jumlah Pemain Inti
-        System.out.print("Masukan Jumlah Fixed Player = ");
+        //Number of Fixed Player
+        System.out.print("Number of Fixed Player(nFP) = ");
         nFP = 11;
         //nFP = input.nextInt();
 
-        //Pemain Cadangan
-        System.out.print("Masukan Jumlah Substitute Player = ");
+        //Number of Substitute Player
+        System.out.print("Number of Substitute Player(nS) = ");
         nS = 11;
         //nS = input.nextInt();
 
-        //jumlah pemain setiap tim
+        //Number of Player in Each Team
         nPlayer = nFP + nS;
-        System.out.println("Jumlah Pemain Satu Tim = " + nPlayer);
+        System.out.println("Number of Player in Each Team = " + nPlayer);
 
-        //jumlah pemain total
+        //Total Player
         nPlayers = nTeam * (nFP + nS);
-        System.out.println("Jumlah Pemain Satu Liga = " + nPlayers);
+        System.out.println("Number of Player in the League = " + nPlayers);
 
-        //Masukan Jumlah Season
+        //Number of Season
         //int season = input.nextInt();
         int season = 3;
 
@@ -161,9 +157,6 @@ public class Main {
 
             }
         }
-
-
-
 
         Arrays.sort(fitness);
 
@@ -1274,7 +1267,6 @@ public class Main {
                 break;
             }
 
-
             if(customerNum>=0){
                 for (b = 0; b < customerNum; b++) {//tiap pelanggan yang belum dilayani
                     for (int a = 0; a < vehicleNum; a++) {//tiap rute
@@ -1367,79 +1359,6 @@ public class Main {
 
 
     }
-
-    /*public static void twoopt(int simpan, int [][] banya, int vehicleNum, int [][][] bestrute, int [][][] rute,int[][] dummyfit, int nPlayers,double[][] matriksjarak, int customerNum){
-        int mulai=0;
-        int dummy = 0;
-        int cek=0;
-        int simpanb =0;
-        int simpanc =0;
-        int simpanpel =0;
-
-        for(int i=0;i<nPlayers;i++){
-            for(int a=0;a<vehicleNum;a++){
-                dummy=100000000;
-                do{
-                    cek=0;
-                    simpanb=0;
-                    simpanc=0;
-                    simpan=0;
-                    simpanpel=0;
-                    for (int b = 0; b < banya[i][a]; b++) {
-                        bestrute[i][a][b] = rute[i][a][b];
-                    }
-
-                    for(int b=0;b<banya[i][a];b++){
-                        for(int c=0;c<banya[i][a];c++){
-                            simpan = rute[i][a][b];
-                            if(c<b){
-                                for(int d=b;d>c;d--){
-                                    rute[i][a][d]=rute[i][a][d-1];
-                                }
-                                rute[i][a][c]=simpan;
-                            }else if(c>b){
-                                for(int d=b;d<c;d++){
-                                    rute[i][a][d]=rute[i][a][d+1];
-                                }
-                                rute[i][a][c]=simpan;
-                            }
-                            dummyfit[i][a]=0;
-                            mulai=0;
-                            for (int j = 0; j < customerNum; j++) {//hitung fitness
-                                if (rute[i][a][j] != 0) {
-                                    dummyfit[i][a] += matriksjarak[mulai][rute[i][a][j]];
-                                    mulai = rute[i][a][j];
-                                }
-                            }
-                            dummyfit[i][a] += matriksjarak[mulai][0];
-                            if(dummyfit[i][a]<dummy){
-                                dummy=dummyfit[i][a];
-                                simpanb = b;
-                                simpanc = c;
-                                simpanpel=simpan;
-                                cek=1;
-                            }
-                            for (int e = 0; e < banya[i][a]; e++) {//reset ke rute awal
-                                rute[i][a][e] = bestrute[i][a][e];
-                            }
-                        }
-                    }
-                    if(simpanc<simpanb){
-                        for(int d=simpanb;d>simpanc;d--){
-                            rute[i][a][d]=rute[i][a][d-1];
-                        }
-                        rute[i][a][simpanc]=simpanpel;
-                    }else if(simpanc>simpanb){
-                        for(int d=simpanb;d<simpanc;d++){
-                            rute[i][a][d]=rute[i][a][d+1];
-                        }
-                        rute[i][a][simpanc]=simpanpel;
-                    }
-                }while(cek==1);
-            }
-        } // tutup loop pemain
-
-    }*/
 
 }
 
