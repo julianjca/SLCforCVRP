@@ -52,7 +52,7 @@ public class Main {
 
         //Number of Season
         //int season = input.nextInt();
-        int season = 3;
+        int season = 100;
 
         //Demand
         int[] demand = new int[customerNum + 1];
@@ -159,7 +159,11 @@ public class Main {
         }
 
         Arrays.sort(fitness);
-
+    //Super Star Player
+        double superstarplayer[] = new double[(vehicleNum*3)+1];
+        //star player
+        double starplayer[][] = new double[100][100];
+        double min = 99999;
         // Loop Season
         int counterSeason = 1;
         do {
@@ -178,7 +182,7 @@ public class Main {
             //System.out.println("");
 
             //Print ulang array yang udah disort
-            for (int i = 0; i < nPlayers; i++) {
+            /*for (int i = 0; i < nPlayers; i++) {
             System.out.println("Pemain " + (i + 1) + " :");
                 for (int j = 0; j < (3 * vehicleNum)+1; j++) {
                     System.out.format("%8.2f", newPlayerArray[i][j]);
@@ -186,13 +190,9 @@ public class Main {
             System.out.println("");
                 }
             System.out.println("");
-            System.out.println("");
+            System.out.println("");*/
 
-            //Super Star Player
-            double superstarplayer[] = new double[(vehicleNum*3)+1];
-            //star player
-            double starplayer[][] = new double[100][100];
-            double min = 99999;
+
 
             //Hitung Star Player dan Super Star Player
             hitungsuperstarplayer(nPlayers, min, newPlayerArray, vehicleNum, superstarplayer);
@@ -484,7 +484,7 @@ public class Main {
             System.out.println("Jarak Terkecil adalah : " + superstarplayer[vehicleNum*3]);
         }while(counterSeason <= season);
 
-        for (int i = 0; i < nPlayers; i++) {
+        /*for (int i = 0; i < nPlayers; i++) {
             System.out.println("Pemain " + (i+1) +" : ");
             for (int j = 0; j < (vehicleNum*3)+1; j++) {
                 System.out.format("%8.2f", newPlayerArray[i][j]);
@@ -493,8 +493,15 @@ public class Main {
             System.out.println("");
         }
         System.out.println("");
-        System.out.println("");
+        System.out.println("");*/
 
+        System.out.println("Koordinat Super Star Player = ");
+        for (int i = 0; i < vehicleNum*3+1; i++) {
+            System.out.format("%8.2f", superstarplayer[i]);
+        }
+        System.out.println("");
+        System.out.println("");
+        System.out.println("Jarak Terkecil adalah : " + superstarplayer[vehicleNum*3]);
 
     }
 
@@ -518,16 +525,21 @@ public class Main {
     }
 
         public static void ratarataFP(double [][] newPlayerArray, double [] []rataratakekuatan, int nTeam, int nFP, int nPlayer, int vehicleNum){
-        double dummykekuatan = 0;
-        double dummykekuatan2 = 0;
+        double dummykekuatan [][] = new double[nTeam][vehicleNum*3];
+            for (int team = 0; team < nTeam; team++) {
+                for (int j = 0; j < vehicleNum*3; j++) {
+                    dummykekuatan [team][j] = 0;
+                }
+            }
+        double dummykekuatan2 [][] = new double[nTeam][vehicleNum*3];
         for (int team = 0; team < nTeam; team++) {
-            dummykekuatan = 0;
             for (int pemain = team*nPlayer; pemain < team*nPlayer+nFP; pemain++) {
-                dummykekuatan += newPlayerArray[pemain][vehicleNum*3];
+                for (int i = 0; i < vehicleNum*3; i++) {
+                    dummykekuatan[team][i] += newPlayerArray[pemain][i];
+                }
             }
             for (int i = 0; i < vehicleNum*3; i++) {
-                dummykekuatan2 = dummykekuatan/nFP;
-                rataratakekuatan[team][i] = dummykekuatan2;
+                rataratakekuatan[team][i] = (dummykekuatan[team][i])/nFP;
             }
             //System.out.println(rataratakekuatan[team]);
         }
@@ -561,7 +573,7 @@ public class Main {
 
 
     public static void hitungsuperstarplayer(int nPlayers, double min, double [][] newPlayerArray, int vehicleNum, double []superstarplayer){
-        System.out.println("Super Star Player =");
+        //System.out.println("Super Star Player =");
         for (int i = 0; i < nPlayers; i++) {
             if (min>newPlayerArray[i][vehicleNum*3]){
                 min = newPlayerArray[i][vehicleNum*3];
@@ -570,15 +582,15 @@ public class Main {
                 }
             }
         }
-        for (int j = 0; j < (vehicleNum*3)+1; j++) {
+        /*for (int j = 0; j < (vehicleNum*3)+1; j++) {
             System.out.format("%8.2f", superstarplayer[j]);
         }
         System.out.println("");
-        System.out.println("");
+        System.out.println("");*/
     }
 
     public static void hitungstarplayer(int nPlayer, double min, double [][] newPlayerArray, int vehicleNum, double [][]starplayer, int nTeam, int nFP){
-        System.out.println("Star Player =");
+        //System.out.println("Star Player =");
         for (int i = 0; i < nTeam; i++) {
             min = 99999;
             for (int team = nPlayer*i; team < (i*nPlayer)+nFP; team++) {
@@ -591,7 +603,7 @@ public class Main {
             }
         }
 
-        for (int i = 0; i < nTeam; i++) {
+        /*for (int i = 0; i < nTeam; i++) {
             for (int j = 0; j < (vehicleNum*3)+1; j++) {
                 System.out.format("%8.2f", starplayer[i][j]);
 
@@ -600,7 +612,7 @@ public class Main {
 
         }
         System.out.println("");
-        System.out.println("");
+        System.out.println("");*/
     }
 
 
