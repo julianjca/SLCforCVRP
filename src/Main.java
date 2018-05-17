@@ -779,11 +779,11 @@ public class Main {
         }*/
 
         //https://stackoverflow.com/questions/863507/whats-the-best-way-to-set-all-values-of-a-three-dimensional-array-to-zero-in-ja
-        /*for (int[][] square : rute) {
+        for (int[][] square : rute) {
             for (int[] line : square) {
                 Arrays.fill(line, 0);
             }
-        }*/
+        }
 
         //buat list pelanggan
         for(int c=0;c<nPlayers;c++){
