@@ -129,10 +129,15 @@ public class Main {
         //Buat Rute
         double[][]vehicle = new double[vehicleNum][3];
         int rute[][][] = new int[nPlayers][vehicleNum][customerNum];
+        int rute2[][][] = new int[nPlayers][vehicleNum][customerNum];
         int [][]banya = new int[nPlayers][vehicleNum];
+        int [][]banya2 = new int[nPlayers][vehicleNum];
         int [][]dummyfit = new int[nPlayers][vehicleNum];
         int bestrute[][][] = new int[nPlayers][vehicleNum][customerNum];
         int rutepos[] = new int[vehicleNum];
+        int [][]dummyfit2 = new int[nPlayers][vehicleNum];
+        int bestrute2[][][] = new int[nPlayers][vehicleNum][customerNum];
+        int rutepos2[] = new int[vehicleNum];
         bentukrute(capacity,resetcustomerNum,customerList,vehicleNum, vehicle, player, coorx, coory, matriksjarak, customerNum, nPlayers, rute, banya, demand,dummyfit, bestrute);
         for (int i = 0; i < nPlayers; i++) {
             for (int j = 0; j < vehicleNum; j++) {
@@ -163,6 +168,7 @@ public class Main {
         double superstarplayer[] = new double[(vehicleNum*3)+1];
         //star player
         double starplayer[][] = new double[100][100];
+        double solutionplayer[][] = new double[1][vehicleNum*3];
         double min = 99999;
         // Loop Season
         int counterSeason = 1;
@@ -466,11 +472,7 @@ public class Main {
                     }
                 }
             }
-            //System.out.println("");
 
-            //Arrays.fill(bestrute, null);
-            //Arrays.fill(rute, null);
-            //Arrays.fill(rutemin, null);
             counterSeason++;
 
             /*Arrays.sort(newPlayerArray, new Comparator<double[]>() {
@@ -499,10 +501,22 @@ public class Main {
         for (int i = 0; i < vehicleNum*3+1; i++) {
             System.out.format("%8.2f", superstarplayer[i]);
         }
+
+        for (int i = 0; i < (vehicleNum*3); i++) {
+            solutionplayer[0][i] = superstarplayer[i];
+        }
+
         System.out.println("");
         System.out.println("");
         System.out.println("Jarak Terkecil adalah : " + superstarplayer[vehicleNum*3]);
-
+        bentukrute2(capacity,resetcustomerNum,customerList,vehicleNum, vehicle, solutionplayer, coorx, coory, matriksjarak, customerNum, 1, rute2, banya2, demand,dummyfit2, bestrute2,rutepos2);
+        for (int i = 0; i < nPlayers; i++) {
+            for (int j = 0; j < vehicleNum; j++) {
+                banya [i][j] = 0;
+            }
+        }
+        hitungfitness2(vehicleNum,customerNum,rute2,fitness,1,matriksjarak,solutionplayer,minpemain,rutemin);
+        customerNum = resetcustomerNum;
     }
 
 
@@ -727,7 +741,81 @@ public class Main {
 
     }
 
+    public static void hitungfitness2(int vehicleNum, int customerNum, int [][][] rute, int [] fitness, int nPlayers,double[][] matriksjarak,double player[][],double[][]minpemain,int[][] rutemin){
+        for (int i = 0; i < nPlayers; i++) {
+            fitness[i]=0;
+        }
 
+        int count=0;
+        int start = 0;
+        for (int i = 0; i < nPlayers; i++) {
+            count=0;
+            //System.out.println("Pemain " + (i + 1));
+            for (int a = 0; a < vehicleNum; a++) {//rute
+                start = 0;
+                //if (rute[i][a][0] != 0) {
+                //System.out.print("Rute " + (a + 1) + " : Depot ");
+                //}
+                for (int b = 0; b < customerNum; b++) {
+                    if (rute[i][a][b] != 0) {
+                        //System.out.print(rute[i][a][b] + " ");
+                        fitness[i] += matriksjarak[start][rute[i][a][b]];
+                        start = rute[i][a][b];
+                        count+=1;
+                    }
+                }
+                fitness[i] += matriksjarak[start][0];
+                //if (rute[i][a][0] != 0) {
+                //System.out.println("Depot");
+                //}
+            }
+            if(count<customerNum){
+                fitness[i]=100000;
+            }
+            //System.out.println("Total Fitness Pemain " +(i+1) +" = "+ fitness[i] + "\n");
+        }
+
+        //Save solusi terbaik
+        int fitnessmin = 10000;
+        int pemainmin = 0;
+        int tmin = 0;
+        for (int i = 0; i < nPlayers; i++) {
+            if (fitness[i] < fitnessmin) {
+                fitnessmin = fitness[i];
+                pemainmin = i;
+                rutemin = rute[i];
+                tmin = 0;
+                for (int j = 0; j <(3*vehicleNum); j++) {
+                    minpemain[pemainmin][j] = player[i][j];
+                }
+            }
+        }
+
+        //Print Solusi Terbaik
+        System.out.println("Solusi : ");
+        System.out.println("Fitness terkecil : " + fitnessmin);
+        System.out.println("Pemain ke " + (pemainmin + 1));
+        System.out.print("Atribut Pemain : ");
+        for (int i = 0; i <(3*vehicleNum); i++) {
+            System.out.format("%8.2f",minpemain[pemainmin][i]);
+        }
+
+        System.out.println("\nRute saat itu : ");
+        for (int j = 0; j < vehicleNum; j++) {
+            if (rutemin[j][0] != 0) {
+                System.out.print("Rute " + (j + 1) + " : Depot ");
+            }
+            for (int k = 0; k < customerNum; k++) {
+                if (rutemin[j][k] != 0) {
+                    System.out.print(rutemin[j][k] + " ");
+                }
+            }
+            if (rutemin[j][0] != 0) {
+                System.out.println("Depot");
+            }
+        }
+
+    }
 
     /*public static void printsolusi(int fitnessmin, int pemainmin, int vehicleNum, double[][]minpemain,int[][] rutemin, int customerNum){
         //Print Solusi Terbaik
