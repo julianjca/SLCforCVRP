@@ -30,8 +30,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="28">
-              <caret line="14" column="26" lean-forward="false" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
+            <state relative-caret-position="136">
+              <caret line="837" column="32" lean-forward="true" selection-start-line="837" selection-start-column="32" selection-end-line="837" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -39,11 +39,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Arrays.java" pinned="false" current-in-tab="false">
+        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/src.zip!/java/util/Arrays.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="206">
+              <caret line="3129" column="0" lean-forward="false" selection-start-line="3129" selection-start-column="0" selection-end-line="3129" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="input.rtf" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/input.rtf">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="113" column="2" lean-forward="true" selection-start-line="113" selection-start-column="2" selection-end-line="113" selection-end-column="2" />
+            <state relative-caret-position="490">
+              <caret line="347" column="6" lean-forward="true" selection-start-line="347" selection-start-column="6" selection-end-line="347" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -73,9 +83,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>rataratakekuatan</find>
-      <find>season</find>
-      <find>bentukrute2</find>
       <find>45</find>
       <find>450</find>
       <find>188</find>
@@ -102,7 +109,10 @@
       <find>f</find>
       <find>fitness</find>
       <find>hitungfitness</find>
+      <find>bentukrute</find>
       <find>rute</find>
+      <find>bentukrute2</find>
+      <find>rutepos</find>
     </findStrings>
   </component>
   <component name="GradleLocalSettings">
@@ -606,12 +616,12 @@
       <workItem from="1525672084779" duration="7909000" />
       <workItem from="1525826401385" duration="3182000" />
       <workItem from="1526395560859" duration="4513000" />
-      <workItem from="1526532629889" duration="3825000" />
+      <workItem from="1526532629889" duration="6131000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="99502000" />
+    <option name="totallyTimeSpent" value="101808000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1005,13 +1015,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/src.zip!/java/util/Arrays.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="1437" column="0" lean-forward="false" selection-start-line="1437" selection-start-column="0" selection-end-line="1437" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Documents/NEW DOCUMENTS/Documents/UNPAR/Skripsi Algo/Skripsi Algo Anus/PROGRAM FIX/src/skripsifga/SkripsiFGA.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1025,16 +1028,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/input.rtf">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="113" column="2" lean-forward="true" selection-start-line="113" selection-start-column="2" selection-end-line="113" selection-end-column="2" />
+        <state relative-caret-position="490">
+          <caret line="347" column="6" lean-forward="true" selection-start-line="347" selection-start-column="6" selection-end-line="347" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/src.zip!/java/util/Arrays.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="3129" column="0" lean-forward="false" selection-start-line="3129" selection-start-column="0" selection-end-line="3129" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="14" column="26" lean-forward="false" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
+        <state relative-caret-position="136">
+          <caret line="837" column="32" lean-forward="true" selection-start-line="837" selection-start-column="32" selection-end-line="837" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

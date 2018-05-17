@@ -12,17 +12,17 @@ public class Main {
         //Input CVRP
         //Vehicle
         System.out.print("Number of Vehicle = ");
-        int vehicleNum = 8;
+        int vehicleNum = 5;
         //int vehicleNum = input.nextInt();
 
         //Vehicle Capacity
         System.out.print("Vehicle's Capacity = ");
-        int capacity = 35;
+        int capacity = 100;
         //int capacity = input.nextInt();
 
         //Customers
         System.out.print("Number of Customers = ");
-        int customerNum = 15;
+        int customerNum = 30;
         //int customerNum = input.nextInt();
         int resetcustomerNum = customerNum;
 
@@ -52,7 +52,7 @@ public class Main {
 
         //Number of Season
         //int season = input.nextInt();
-        int season = 5;
+        int season = 50;
 
         //Demand
         int[] demand = new int[customerNum + 1];
@@ -698,23 +698,6 @@ public class Main {
             }
             //System.out.println("Total Fitness Pemain " +(i+1) +" = "+ fitness[i] + "\n");
         }
-
-        //Save solusi terbaik
-        int fitnessmin = 10000;
-        int pemainmin = 0;
-        int tmin = 0;
-        for (int i = 0; i < nPlayers; i++) {
-            if (fitness[i] < fitnessmin) {
-                fitnessmin = fitness[i];
-                pemainmin = i;
-                rutemin = rute[i];
-                tmin = 0;
-                for (int j = 0; j <(3*vehicleNum); j++) {
-                    minpemain[pemainmin][j] = player[i][j];
-                }
-            }
-        }
-
         //Print Solusi Terbaik
         /*System.out.println("Solusi Setelah Provokasi : ");
         System.out.println("Fitness terkecil : " + fitnessmin);
@@ -851,9 +834,27 @@ public class Main {
             }
         }
 
-        for (int i = 0; i < vehicleNum; i++) {
+        /*for (int i = 0; i < vehicleNum; i++) {
                  rutepos[i] = 0;
-        }
+        }*/
+
+        Arrays.fill(rutepos,0);
+
+        /*rute = new int[nPlayers][vehicleNum][customerNum];
+        for (int i = 0; i < nPlayers; i++) {
+            for (int j = 0; j < vehicleNum; j++) {
+                for (int k = 0; k < customerNum; k++) {
+                    rute[i][j][k] = 0;
+                }
+            }
+        }*/
+
+        //https://stackoverflow.com/questions/863507/whats-the-best-way-to-set-all-values-of-a-three-dimensional-array-to-zero-in-ja
+        /*for (int[][] square : rute) {
+            for (int[] line : square) {
+                Arrays.fill(line, 0);
+            }
+        }*/
 
         //buat list pelanggan
         for(int c=0;c<nPlayers;c++){
