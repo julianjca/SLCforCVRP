@@ -22,24 +22,24 @@ public class Main {
 
         //Customers
         System.out.print("Number of Customers = ");
-        int customerNum = 53;
+        int customerNum = 56;
         //int customerNum = input.nextInt();
         int resetcustomerNum = customerNum;
 
         //Input SLC
         //Teams
         System.out.print("Number of Teams = ");
-        nTeam = 5;
+        nTeam = 2;
         //nTeam = input.nextInt();
 
         //Number of Fixed Player
         System.out.print("Number of Fixed Player(nFP) = ");
-        nFP = 11;
+        nFP = 3;
         //nFP = input.nextInt();
 
         //Number of Substitute Player
         System.out.print("Number of Substitute Player(nS) = ");
-        nS = 11;
+        nS = 3;
         //nS = input.nextInt();
 
         //Number of Player in Each Team
@@ -52,7 +52,7 @@ public class Main {
 
         //Number of Season
         //int season = input.nextInt();
-        int season = 30;
+        int season = 100;
 
         //Demand
         int[] demand = new int[customerNum + 1];
@@ -451,6 +451,11 @@ public class Main {
         }
         hitungfitness2(vehicleNum,customerNum,rute2,fitness,1,matriksjarak,solutionplayer,minpemain,rutemin);
         customerNum = resetcustomerNum;
+
+        System.out.println("nTeam = " + nTeam);
+        System.out.println("nFP = " + nFP);
+        System.out.println("nS = " + nS);
+
     }
 
 
