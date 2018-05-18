@@ -12,7 +12,7 @@ public class Main {
         //Input CVRP
         //Vehicle
         System.out.print("Number of Vehicle = ");
-        int vehicleNum = 7;
+        int vehicleNum = 5;
         //int vehicleNum = input.nextInt();
 
         //Vehicle Capacity
@@ -22,24 +22,24 @@ public class Main {
 
         //Customers
         System.out.print("Number of Customers = ");
-        int customerNum = 56;
+        int customerNum = 31;
         //int customerNum = input.nextInt();
         int resetcustomerNum = customerNum;
 
         //Input SLC
         //Teams
         System.out.print("Number of Teams = ");
-        nTeam = 4;
+        nTeam = 2;
         //nTeam = input.nextInt();
 
         //Number of Fixed Player
         System.out.print("Number of Fixed Player(nFP) = ");
-        nFP = 5;
+        nFP = 8;
         //nFP = input.nextInt();
 
         //Number of Substitute Player
         System.out.print("Number of Substitute Player(nS) = ");
-        nS = 2;
+        nS = 5;
         //nS = input.nextInt();
 
         //Number of Player in Each Team
@@ -52,7 +52,7 @@ public class Main {
 
         //Number of Season
         //int season = input.nextInt();
-        int season = 1000;
+        int season = 3000;
 
         //Demand
         int[] demand = new int[customerNum + 1];
@@ -167,6 +167,7 @@ public class Main {
         }
 
         Arrays.sort(fitness);
+        double counterMinus = 0;
 
         //Super Star Player (best in the league)
         double superstarplayer[] = new double[(vehicleNum*3)+1];
@@ -218,6 +219,8 @@ public class Main {
             //Average of Fixed Player in each Team
             double rataratakekuatan [][] = new double[nTeam][vehicleNum*3];
             ratarataFP(newPlayerArray, rataratakekuatan, nTeam, nFP, nPlayer, vehicleNum);
+
+
 
             //Start match
             for (int team = 0; team< nTeam;team++){
@@ -275,7 +278,7 @@ public class Main {
                                     tao2 = (Math.random() * (2 - 0)) + 0;
                             //Do the Second Imitation
                             for (int i = 0; i < nPlayers; i++) {
-                                if (dummyFitness[i]>newPlayerArray[i][vehicleNum*3]) {
+                                if (dummyFitness[i]>=newPlayerArray[i][vehicleNum*3]) {
                                     dummyPemain[pemain][dim] = (miu2 * newPlayerArray[pemain][dim]) + (tao1 * (superstarplayer[dim] - newPlayerArray[pemain][dim])) + (tao2 * (starplayer[team][dim] - newPlayerArray[pemain][dim]));
                                 }
                             }
@@ -308,7 +311,7 @@ public class Main {
                                     tao1 = (Math.random() * (2 - 0)) + 0;
                                     tao2 = (Math.random() * (2 - 0)) + 0;
                                     for (int i = 0; i < nPlayers; i++) {
-                                        if (dummyFitness[i]>newPlayerArray[i][vehicleNum*3]) {
+                                        if (dummyFitness[i]>=newPlayerArray[i][vehicleNum*3]) {
                                             provokasi2(team, rataratakekuatan, nFP, nPlayer, vehicleNum, x2, dummyPemain);
                                         }
                                     }
@@ -358,7 +361,7 @@ public class Main {
                                     tao1 = (Math.random() * (2 - 0)) + 0;
                                     tao2 = (Math.random() * (2 - 0)) + 0;
                                     for (int i = 0; i < nPlayers; i++) {
-                                        if (dummyFitness[i]>newPlayerArray[i][vehicleNum*3]) {
+                                        if (dummyFitness[i]>=newPlayerArray[i][vehicleNum*3]) {
                                             dummyPemain[pemain][dim] = (miu2 * newPlayerArray[pemain][dim]) + (tao1 * (superstarplayer[dim] - newPlayerArray[pemain][dim])) + (tao2 * (starplayer[team][dim] - newPlayerArray[pemain][dim]));
                                         }
                                     }
@@ -398,7 +401,7 @@ public class Main {
                                     //System.out.println("");
                                     tao2 = (Math.random() * (2 - 0)) + 0;
                                     for (int i = 0; i < nPlayers; i++) {
-                                        if (dummyFitness[i]>newPlayerArray[i][vehicleNum*3]) {
+                                        if (dummyFitness[i]>=newPlayerArray[i][vehicleNum*3]) {
                                             provokasi2(team, rataratakekuatan, nFP, nPlayer, vehicleNum, x2, dummyPemain);
                                         }
                                     }
@@ -1005,7 +1008,7 @@ public class Main {
             }
 
 
-            if(customerNum>=0){
+           if(customerNum>=0){
                 for (b = 0; b < customerNum; b++) {//tiap pelanggan yang belum dilayani
                     for (int a = 0; a < vehicleNum; a++) {//tiap rute
                         if ((kapa[a] - demand[customerList[i][b]]) >= 0) {
