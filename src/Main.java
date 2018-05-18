@@ -29,17 +29,17 @@ public class Main {
         //Input SLC
         //Teams
         System.out.print("Number of Teams = ");
-        nTeam = 2;
+        nTeam = 4;
         //nTeam = input.nextInt();
 
         //Number of Fixed Player
         System.out.print("Number of Fixed Player(nFP) = ");
-        nFP = 3;
+        nFP = 5;
         //nFP = input.nextInt();
 
         //Number of Substitute Player
         System.out.print("Number of Substitute Player(nS) = ");
-        nS = 3;
+        nS = 2;
         //nS = input.nextInt();
 
         //Number of Player in Each Team
@@ -52,7 +52,7 @@ public class Main {
 
         //Number of Season
         //int season = input.nextInt();
-        int season = 100;
+        int season = 1000;
 
         //Demand
         int[] demand = new int[customerNum + 1];
@@ -282,7 +282,7 @@ public class Main {
                                 }
                             }
                             //Create new route + count the fitness
-                            bentukrute2(capacity,resetcustomerNum,customerList,vehicleNum, vehicle, dummyPemain, coorx, coory, matriksjarak, customerNum, nPlayers, rute, banya, demand,dummyfit, bestrute,rutepos);
+                            bentukrute2(capacity,resetcustomerNum,customerList,vehicleNum, vehicle, dummyPemain, coorx, coory, matriksjarak, customerNum, nPlayers, rute, banya, demand, dummyfit, bestrute, rutepos);
                             hitungfitness(vehicleNum,customerNum,rute,dummyFitness,nPlayers,matriksjarak,player,minpemain,rutemin);
                             //check if the fitness is better
                             cekfitnessbaru(newPlayerArray,vehicleNum,nPlayers,dummyFitness,fitness,dummyPemain);
@@ -417,6 +417,11 @@ public class Main {
             }
             counterSeason++;
             hitungsuperstarplayer(nPlayers, min, newPlayerArray, vehicleNum, superstarplayer);
+            System.out.println("Super Star Player = ");
+            for (int i = 0; i < vehicleNum*3+1; i++) {
+                System.out.format("%8.2f", superstarplayer[i]);
+            }
+            System.out.println("");
             System.out.println("Jarak Terkecil adalah : " + superstarplayer[vehicleNum*3]);
         }while(counterSeason <= season);
 
