@@ -12,7 +12,7 @@ public class Main {
         //Input CVRP
         //Vehicle
         System.out.print("Number of Vehicle = ");
-        int vehicleNum = 5;
+        int vehicleNum = 7;
         //int vehicleNum = input.nextInt();
 
         //Vehicle Capacity
@@ -22,7 +22,7 @@ public class Main {
 
         //Customers
         System.out.print("Number of Customers = ");
-        int customerNum = 31;
+        int customerNum = 53;
         //int customerNum = input.nextInt();
         int resetcustomerNum = customerNum;
 
@@ -52,7 +52,7 @@ public class Main {
 
         //Number of Season
         //int season = input.nextInt();
-        int season = 50;
+        int season = 30;
 
         //Demand
         int[] demand = new int[customerNum + 1];
@@ -496,7 +496,7 @@ public class Main {
     public static void cekfitnessbaru(double [][] newPlayerArray, int vehicleNum, int nPlayers, int [] dummyFitness, int [] fitness, double [][] dummyPemain){
         int berubah =0;
         for (int i = 0; i < nPlayers; i++) {
-            if (dummyFitness[i]<=newPlayerArray[i][vehicleNum*3]){
+            if (dummyFitness[i]<newPlayerArray[i][vehicleNum*3]){
                 //System.out.println("Dummy Fitness = " + dummyFitness[i]);
                 //System.out.println("Fitness ="  + newPlayerArray[i][vehicleNum*3]);
                 //System.out.println("BERUBAH");
@@ -770,20 +770,20 @@ public class Main {
         Arrays.fill(rutepos,0);
 
         //rute = new int[nPlayers][vehicleNum][customerNum];
-        /*for (int i = 0; i < nPlayers; i++) {
+        for (int i = 0; i < nPlayers; i++) {
             for (int j = 0; j < vehicleNum; j++) {
                 for (int k = 0; k < customerNum; k++) {
                     rute[i][j][k] = 0;
                 }
             }
-        }*/
+        }
 
         //https://stackoverflow.com/questions/863507/whats-the-best-way-to-set-all-values-of-a-three-dimensional-array-to-zero-in-ja
-        for (int[][] square : rute) {
+        /*for (int[][] square : rute) {
             for (int[] line : square) {
                 Arrays.fill(line, 0);
             }
-        }
+        }*/
 
         //buat list pelanggan
         for(int c=0;c<nPlayers;c++){
