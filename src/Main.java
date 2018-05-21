@@ -29,17 +29,17 @@ public class Main {
         //Input SLC
         //Teams
         System.out.print("Number of Teams = ");
-        nTeam = 2;
+        nTeam = 3;
         //nTeam = input.nextInt();
 
         //Number of Fixed Player
         System.out.print("Number of Fixed Player(nFP) = ");
-        nFP = 8;
+        nFP = 7;
         //nFP = input.nextInt();
 
         //Number of Substitute Player
         System.out.print("Number of Substitute Player(nS) = ");
-        nS = 5;
+        nS = 3;
         //nS = input.nextInt();
 
         //Number of Player in Each Team
@@ -52,7 +52,7 @@ public class Main {
 
         //Number of Season
         //int season = input.nextInt();
-        int season = 3000;
+        int season = 1000;
 
         //Demand
         int[] demand = new int[customerNum + 1];
@@ -178,6 +178,7 @@ public class Main {
         double min = 99999;
         // Loop Season
         int counterSeason = 1;
+
         do {
             System.out.println("");
             System.out.println("Season - " + counterSeason);
@@ -219,7 +220,21 @@ public class Main {
             //Average of Fixed Player in each Team
             double rataratakekuatan [][] = new double[nTeam][vehicleNum*3];
             ratarataFP(newPlayerArray, rataratakekuatan, nTeam, nFP, nPlayer, vehicleNum);
-
+            /*for (int i = 0; i < nPlayers; i++) {
+                for (int j = 0; j < vehicleNum*3; j++) {
+                    System.out.format("%8.2f", newPlayerArray[i][j]);
+                }
+                System.out.println("");
+            }
+            System.out.println("");
+            System.out.println("Rata - rata kekuatan");
+            for (int i = 0; i < nTeam; i++) {
+                for (int j = 0; j < vehicleNum*3; j++) {
+                    System.out.format("%8.2f", rataratakekuatan[i][j]);
+                }
+                System.out.println("");
+            }
+            System.out.println("");*/
 
 
             //Start match
@@ -285,7 +300,7 @@ public class Main {
                                 }
                             }
                             //Create new route + count the fitness
-                            bentukrute2(capacity,resetcustomerNum,customerList,vehicleNum, vehicle, dummyPemain, coorx, coory, matriksjarak, customerNum, nPlayers, rute, banya, demand, dummyfit, bestrute, rutepos);
+                            bentukrute2(capacity,resetcustomerNum,customerList,vehicleNum, vehicle, dummyPemain, coorx, coory, matriksjarak, customerNum, nPlayers, rute, banya, demand,dummyfit, bestrute,rutepos);
                             hitungfitness(vehicleNum,customerNum,rute,dummyFitness,nPlayers,matriksjarak,player,minpemain,rutemin);
                             //check if the fitness is better
                             cekfitnessbaru(newPlayerArray,vehicleNum,nPlayers,dummyFitness,fitness,dummyPemain);
@@ -368,7 +383,7 @@ public class Main {
                                 }
                             }
                             //Create New Route + Count Fitness
-                            bentukrute2(capacity,resetcustomerNum,customerList,vehicleNum, vehicle, dummyPemain, coorx, coory, matriksjarak, customerNum, nPlayers, rute, banya, demand,dummyfit, bestrute,rutepos);
+                            bentukrute2(capacity,resetcustomerNum,customerList,vehicleNum, vehicle, dummyPemain, coorx, coory, matriksjarak, customerNum, nPlayers, rute, banya, demand, dummyfit, bestrute,rutepos);
                             hitungfitness(vehicleNum,customerNum,rute,dummyFitness,nPlayers,matriksjarak,player,minpemain,rutemin);
                             //Check if the new fitness is better
                             cekfitnessbaru(newPlayerArray,vehicleNum,nPlayers,dummyFitness,fitness,dummyPemain);
@@ -773,6 +788,7 @@ public class Main {
 
 
     public static void bentukrute2(int capacity,int resetcustomerNum, int [][] customerList, int vehicleNum, double [][] vehicle, double [][] player,double [] coorx, double [] coory,double[][] matriksjarak, int customerNum, int nPlayers, int[][][] rute, int [][] banya, int []demand, int[][] dummyfit, int[][][]bestrute, int []rutepos){
+        customerNum=resetcustomerNum;
         //reset variable banya
         for (int i = 0; i < nPlayers; i++) {
             for (int j = 0; j < vehicleNum; j++) {
@@ -831,7 +847,7 @@ public class Main {
         }
         int sementara2 = 0;
         int cek1 =0;
-        int[] kapa = new int[vehicleNum];
+        int[] kapa;
         //Tentukan referensi kendaraan (koordinat dan radius pelayanan)
         for(int i=0;i<nPlayers;i++){//Setiap Pemain
             customerNum=resetcustomerNum;
